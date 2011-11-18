@@ -30,7 +30,7 @@ module Devise
             resource = new(conditions) if (resource.nil? and ::Devise.cas_create_user?)
             return nil unless resource
             
-            resource.cas_extra_attributes = ticket.response.extra_attributes if resource.respond_to? :cas_extra_attributes=
+            resource.cas_extra_attributes = ticket.extra_attributes if resource.respond_to? :cas_extra_attributes=
             resource.save
             resource
           end
