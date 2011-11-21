@@ -17,7 +17,8 @@ module Devise
         ticket = read_ticket(params)
         if ticket
           if resource = mapping.to.authenticate_with_cas_ticket(ticket)
-            # Store the ticket in the session for later usage
+            # Store the ticket and TGT in the session for later usage
+            session['tgt'] = ticket.extra_attributes['TGT'] if ticket.extra_attributes['TGT']
             if ::Devise.cas_enable_single_sign_out
               session['cas_last_valid_ticket'] = ticket.ticket
               session['cas_last_valid_ticket_store'] = true
